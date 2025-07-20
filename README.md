@@ -36,6 +36,32 @@ This directory contains materials used in the experiment.
 ### `Raw_Data/` (Raw Data)
 
 This directory contains the raw experimental results in CSV format.
+All CSV files are encoded in UTF-8 with BOM.
+The scales used in this raw data are based on the questionnaire items presented in the main paper for this repository: "The Effect of Users’ Attribution of Agency Toward Dialogue Agents on Responsibility Attribution to Agent Adopters."
+
+Specifically, for items related to "Sota's capabilities" (Sotaは以下の項目をどの程度できると思いますか), the 7-point scale corresponds as follows:
+- 日本語: 「1.非常にできない, 2.できない, 3.どちらかといえばできない, 4.どちらともいえない, 5.どちらかといえばよくできる, 6.よくできる, 7.非常によくできる」
+- English: (1. Completely incapable, 2. Incapable, 3. Somewhat incapable, 4. Neutral, 5. Somewhat capable, 6. Capable, 7. Extremely capable)
+
+For items related to "Attribution of Responsibility" (例: あなたが任務に失敗したのはSotaの責任だと思いますか？) and "Likability towards Agent Adopter (AA)" (AAに対する好感度), the 7-point scale corresponds as follows:
+- 日本語: 「1.全くそう思わない, 2.そう思わない, 3.どちらかといえばそう思わない, 4.どちらでもない, 5.どちらかといえばそう思う, 6.そう思う, 7.非常にそう思う」
+- English: (1 = Strongly disagree, 2 = Disagree, 3 = Slightly disagree, 4 = Neutral, 5 = Slightly agree, 6 = Agree, 7 = Strongly agree)
+
+Additionally, the CSV files contain numerical data from the **Godspeed Scale III: Likability** questionnaire, used to assess impressions of Sota. The items were presented in the following order:
+
+- 日本語:
+    - 嫌い - 好き
+    - 親しみにくい - 親しみやすい
+    - 不親切な - 親切な
+    - 不愉快な - 愉快な
+    - 酷い - 良い
+- English:
+    - Dislike - Like
+    - Unfriendly - Friendly
+    - Unkind - Kind
+    - Unpleasant - Pleasant
+    - Awful - Nice
+    
 - `TypeA_Pre.csv`: Responses collected before the task for utterance Type A.
 - `TypeA_Post.csv`: Responses collected after the task for utterance Type A.
 - `TypeB_Pre.csv`: Responses collected before the task for utterance Type B.
