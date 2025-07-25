@@ -23,11 +23,11 @@ source('signRankSampler.R')         # Contains signRankGibbsSampler function
 # Experimental Data (defined as R vectors)
 # This data might originate from a Python script or analysis.
 # -----------------------------------------------------------------------------
-sota_suki_mae <- c(4, 4.8, 4.6, 4.4, 3.8, 3.8, 3.6, 3.6, 4.2, 4.6, 3.4, 3.4, 2.6, 3.8, 3.2, 4.4, 4.6, 2.8, 3.2, 3.4, 5, 3.6)
-sota_suki_go <- c(4.6, 4.8, 4.8, 4.8, 2.6, 2.6, 3.8, 4.2, 3.2, 4.8, 3.6, 3.8, 3.6, 5, 4.4, 4.6, 4.8, 3.6, 3.4, 4, 4.4, 4.6)
+sota_likability_pre <- c(4, 4.8, 4.6, 4.4, 3.8, 3.8, 3.6, 3.6, 4.2, 4.6, 3.4, 3.4, 2.6, 3.8, 3.2, 4.4, 4.6, 2.8, 3.2, 3.4, 5, 3.6)
+sota_likability_post <- c(4.6, 4.8, 4.8, 4.8, 2.6, 2.6, 3.8, 4.2, 3.2, 4.8, 3.6, 3.8, 3.6, 5, 4.4, 4.6, 4.8, 3.6, 3.4, 4, 4.4, 4.6)
 
-n_samples <- length(sota_suki_mae)
-if (n_samples != length(sota_suki_go)) {
+n_samples <- length(sota_likability_pre)
+if (n_samples != length(sota_likability_post)) {
   stop("Input arrays must have the same length.")
 }
 print(paste("Sample size (N):", n_samples))
@@ -45,8 +45,8 @@ print(paste("Sample size (N):", n_samples))
 # 'nBurnin' specifies the number of burn-in samples to discard from each chain.
 # 'nGibbsIterations' refers to iterations within the Gibbs sampler for convergence.
 posteriorSamples <- signRankGibbsSampler(
-  xVals = sota_suki_go,
-  yVals = sota_suki_mae,
+  xVals = sota_likability_pre,
+  yVals = sota_likability_post,
   nSamples = 1e4,
   cauchyPriorParameter = 1/sqrt(2),
   testValue = 0,
@@ -64,36 +64,36 @@ posteriorSamples <- signRankGibbsSampler(
 # The 'posteriorSamples' are the MCMC samples of delta obtained from the Gibbs sampler.
 # 'priorParameter' corresponds to the scale parameter of the Cauchy prior used for delta.
 # The null hypothesis is inherently assumed to be at 0 within this function's design.
-BF10_sota_suki <- computeBayesFactorOneZero(
+BF10_sota_likability <- computeBayesFactorOneZero(
   posteriorSamples = posteriorSamples,
   priorParameter = 1/sqrt(2)
 )
 
-print(paste("Bayes Factor (BF10) for sota_suki:", BF10_sota_suki))
+print(paste("Bayes Factor (BF10) for sota_likability:", BF10_sota_likability))
 
 # -----------------------------------------------------------------------------
 # Interpretation of Results (Optional: Uncomment to enable)
 # -----------------------------------------------------------------------------
 # The interpretation of the Bayes Factor is based on the following criteria:
-# if (BF10_sota_suki > 100) {
+# if (BF10_sota_likability > 100) {
 #   interpretation <- "H1 (a difference exists) is supported by extreme evidence."
-# } else if (BF10_sota_suki > 30) {
+# } else if (BF10_sota_likability > 30) {
 #   interpretation <- "H1 (a difference exists) is supported by very strong evidence."
-# } else if (BF10_sota_suki > 10) {
+# } else if (BF10_sota_likability > 10) {
 #   interpretation <- "H1 (a difference exists) is supported by strong evidence."
-# } else if (BF10_sota_suki > 3) {
+# } else if (BF10_sota_likability > 3) {
 #   interpretation <- "H1 (a difference exists) is supported by moderate evidence."
-# } else if (BF10_sota_suki > 1) {
+# } else if (BF10_sota_likability > 1) {
 #   interpretation <- "H1 (a difference exists) is supported by anecdotal evidence."
-# } else if (BF10_sota_suki == 1) {
+# } else if (BF10_sota_likability == 1) {
 #   interpretation <- "The data equally support both hypotheses (no evidence)."
-# } else if (BF10_sota_suki < 1/100) { # BF01 > 100
+# } else if (BF10_sota_likability < 1/100) { # BF01 > 100
 #   interpretation <- "H0 (no difference exists) is supported by extreme evidence."
-# } else if (BF10_sota_suki < 1/30) { # BF01 > 30
+# } else if (BF10_sota_likability < 1/30) { # BF01 > 30
 #   interpretation <- "H0 (no difference exists) is supported by very strong evidence."
-# } else if (BF10_sota_suki < 1/10) { # BF01 > 10
+# } else if (BF10_sota_likability < 1/10) { # BF01 > 10
 #   interpretation <- "H0 (no difference exists) is supported by strong evidence."
-# } else if (BF10_sota_suki < 1/3) { # BF01 > 3
+# } else if (BF10_sota_likability < 1/3) { # BF01 > 3
 #   interpretation <- "H0 (no difference exists) is supported by moderate evidence."
 # } else { # BF01 < 3
 #   interpretation <- "H0 (no difference exists) is supported by anecdotal evidence."

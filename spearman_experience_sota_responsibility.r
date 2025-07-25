@@ -21,10 +21,10 @@ source('spearmanSampler.R')         # Contains spearmanGibbsSampler function
 # -----------------------------------------------------------------------------
 # Experimental Data (defined as R vectors)
 # -----------------------------------------------------------------------------
-aa_responsibility <- c(3, 4, 3, 1, 1, 3, 3, 3, 5, 3, 2, 5, 6, 2, 5, 5, 2, 1, 5, 2, 2, 2)
+sota_responsibility <- c(3, 4, 3, 1, 1, 3, 3, 3, 5, 3, 2, 5, 6, 2, 5, 5, 2, 1, 5, 2, 2, 2)
 experience_diff <- c(1.7, 0, 1.6, 0.3, 0.7, 1.2, -0.1, -0.9, -0.1, -0.3, -0.5, 0.1, 1, 2.3, 0, 0.7, 0.6, 0.1, 0.7, -0.1, -0.5, -0.5)
 
-n <- length(aa_responsibility)
+n <- length(sota_responsibility)
 if (n != length(experience_diff)) {
   stop("Input arrays must have the same length.")
 }
@@ -44,7 +44,7 @@ print(paste("Sample size (N):", n))
 #                      (The default a=b=1 corresponds to a uniform prior on rho).
 #                      For Spearman's rho, the priorParameter is kappa (the inverse scale of the Beta distribution).
 #                      The example in ExampleAnalyses.R for Spearman's rho uses the default value of 1.
-rhoSamples <- spearmanGibbsSampler(xVals = aa_responsibility,
+rhoSamples <- spearmanGibbsSampler(xVals = sota_responsibility,
                                    yVals = experience_diff,
                                    nSamples = 1e4, # 10,000 samples for convergence and stability
                                    progBar = TRUE,

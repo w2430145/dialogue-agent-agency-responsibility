@@ -22,13 +22,13 @@ source('spearmanSampler.R')         # Contains spearmanGibbsSampler function
 # Experimental Data (defined as R vectors)
 # This data might originate from a Python script or analysis.
 # -----------------------------------------------------------------------------
-array1 <- c(3, 4, 3, 1, 1, 3, 3, 3, 5, 3, 2, 5, 6, 2, 5, 5, 2, 1, 5, 2, 2, 2)
-array2 <- c(0.142857143, -0.285714286, 0.714285714, 0.142857143, 0.285714286, -0.857142857, -0.285714286, 0.142857143,
+sota_responsibility <- c(3, 4, 3, 1, 1, 3, 3, 3, 5, 3, 2, 5, 6, 2, 5, 5, 2, 1, 5, 2, 2, 2)
+agency_diff <- c(0.142857143, -0.285714286, 0.714285714, 0.142857143, 0.285714286, -0.857142857, -0.285714286, 0.142857143,
             0, -0.142857143, -0.571428571, 0.142857143, 0.571428571, 2.857142857, -0.571428571, -0.428571429, -1.142857143,
             -1.428571429, 1, 0.285714286, -0.857142857, 0.428571429)
 
-n <- length(array1)
-if (n != length(array2)) {
+n <- length(sota_responsibility)
+if (n != length(agency_diff)) {
   stop("Input arrays must have the same length.")
 }
 print(paste("Sample size (N):", n))
@@ -47,8 +47,8 @@ print(paste("Sample size (N):", n))
 #                      (The default a=b=1 corresponds to a uniform prior on rho).
 #                      For Spearman's rho, the priorParameter is kappa (the inverse scale of the Beta distribution).
 #                      The example in ExampleAnalyses.R for Spearman's rho uses the default value of 1.
-rhoSamples <- spearmanGibbsSampler(xVals = array1,
-                                   yVals = array2,
+rhoSamples <- spearmanGibbsSampler(xVals = sota_responsibility,
+                                   yVals = agency_diff,
                                    nSamples = 1e4, # 10,000 samples for convergence and stability
                                    progBar = TRUE,
                                    nBurnin = 2e3,  # Set a larger burn-in period
